@@ -211,6 +211,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
           badge: "Supervisión Creativa",
           highlights:
             "Regreso a la agencia matriz como supervisor creativo: dirección de equipos multidisciplinares de arte y código, y liderazgo de grandes cuentas multinacionales bajo plazos implacables.",
+          awards: "FIAP · El Ojo de Iberoamérica · Premios Eficacia",
           clients: ["Disney", "Orange", "Vodafone", "Kellogg's", "ONCE"],
         },
         {
@@ -487,6 +488,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
           badge: "Creative Supervision",
           highlights:
             "Return to the mothership as creative supervisor: leading and mentoring multidisciplinary squads of art and engineering for top international accounts.",
+          awards: "FIAP · El Ojo de Iberoamérica · Effie Awards",
           clients: ["Disney", "Orange", "Vodafone", "Kellogg's", "ONCE"],
         },
         {
