@@ -27,11 +27,11 @@ const sansFont = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.help-estudio.es/cv"),
-  title: "Javier Blanco González — Creative Director & Product Architect",
+  title: "Javier Blanco González — Creative Technologist & Product Architect",
   description:
     "Veinticinco años persiguiendo el píxel perfecto. Del asombro analógico al pulso de los agentes de IA.",
   keywords: [
-    "Creative Director",
+    "Creative Technologist",
     "Product Architect",
     "Next.js",
     "AI",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     { name: "Javier Blanco González", url: "https://www.help-estudio.es" },
   ],
   openGraph: {
-    title: "Javier Blanco González — Creative Director & Product Architect",
+    title: "Javier Blanco González — Creative Technologist & Product Architect",
     description:
       "Veinticinco años persiguiendo el píxel perfecto. Del asombro analógico al pulso de los agentes de IA.",
     url: "https://www.help-estudio.es/cv/",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Javier Blanco González — Creative Director & Product Architect",
+    title: "Javier Blanco González — Creative Technologist & Product Architect",
     description:
       "Veinticinco años persiguiendo el píxel perfecto. Del asombro analógico al pulso de los agentes de IA.",
   },

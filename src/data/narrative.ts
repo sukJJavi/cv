@@ -109,7 +109,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
   es: {
     meta: {
       status: "CREANDO EL FUTURO · MADRID & GLOBAL",
-      roleHeader: "DIRECTOR CREATIVO / ARQUITECTO DE PRODUCTO",
+      roleHeader: "CREATIVE TECHNOLOGIST / ARQUITECTO DE PRODUCTO",
       scrollHint: "DESLIZA PARA ATRAVESAR LA MEMORIA · 2000 — 2026",
       coordinates: "VEINTICINCO AÑOS DE OFICIO · MADRID / MUNDO",
       webglStateLabel: [
@@ -121,7 +121,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
     },
     hero: {
       index: "00 / 04",
-      role: "DIRECTOR CREATIVO / ARQUITECTO DE PRODUCTO",
+      role: "CREATIVE TECHNOLOGIST / ARQUITECTO DE PRODUCTO",
       headlineLines: [
         "Veinticinco años",
         "persiguiendo el",
@@ -386,7 +386,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
   en: {
     meta: {
       status: "BUILDING THE FUTURE · MADRID & GLOBAL",
-      roleHeader: "CREATIVE DIRECTOR / PRODUCT ARCHITECT",
+      roleHeader: "CREATIVE TECHNOLOGIST / PRODUCT ARCHITECT",
       scrollHint: "SCROLL TO TRAVERSE MEMORY · 2000 — 2026",
       coordinates: "TWENTY-FIVE YEARS OF CRAFT · MADRID / WORLD",
       webglStateLabel: [
@@ -398,7 +398,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
     },
     hero: {
       index: "00 / 04",
-      role: "CREATIVE DIRECTOR / PRODUCT ARCHITECT",
+      role: "CREATIVE TECHNOLOGIST / PRODUCT ARCHITECT",
       headlineLines: [
         "Twenty-five years",
         "chasing the",
