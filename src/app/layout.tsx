@@ -37,7 +37,7 @@ const siteUrl = "https://cv-psi-ochre.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Javier Blanco González — Creative Technologist & Product Architect",
+    default: "Javier Blanco González · Creative Technologist",
     template: "%s | Javier Blanco González",
   },
   description:
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "Javier Blanco González — Creative Technologist & Product Architect",
+    title: "Javier Blanco González · Creative Technologist",
     description:
       "Veinticinco años persiguiendo el píxel perfecto. Del asombro analógico al pulso de los agentes de IA.",
     url: siteUrl,
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Javier Blanco González — Creative Technologist & Product Architect",
+    title: "Javier Blanco González · Creative Technologist",
     description:
       "Veinticinco años persiguiendo el píxel perfecto. Del asombro analógico al pulso de los agentes de IA.",
     images: [
