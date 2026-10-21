@@ -5,7 +5,9 @@ export interface TimelineEntry {
   role: string;
   company: string;
   location: string;
+  badge?: string;
   highlights: string;
+  awards?: string;
   clients: string[];
 }
 
@@ -55,6 +57,7 @@ export interface NarrativeContent {
     quote: string;
     agenciesLabel: string;
     timeline: TimelineEntry[];
+    vccpNote?: string;
   };
   act2: {
     index: string;
@@ -105,19 +108,19 @@ export interface NarrativeContent {
 export const NARRATIVE: Record<Locale, NarrativeContent> = {
   es: {
     meta: {
-      status: "DISPONIBLE PARA PROYECTOS SELECCIONADOS",
+      status: "CREANDO EL FUTURO · MADRID & GLOBAL",
       roleHeader: "DIRECTOR CREATIVO / ARQUITECTO DE PRODUCTO",
-      scrollHint: "DESPLAZA PARA ATRAVESAR LA MEMORIA · 2000 — 2026",
-      coordinates: "40.4168° N, 3.7038° W · MADRID / REMOTO",
+      scrollHint: "DESLIZA PARA ATRAVESAR LA MEMORIA · 2000 — 2026",
+      coordinates: "VEINTICINCO AÑOS DE OFICIO · MADRID / MUNDO",
       webglStateLabel: [
-        " CAMPO DE MEMORIA VIVA // NEBULOSA",
-        " RETÍCULA CARTESIANA // RIGOR CLÁSICO",
-        " MONOLITO DE ALTA DENSIDAD // FUERZA INDUSTRIAL",
-        " NÚCLEO ORBITAL // SINGULARIDAD & IA",
+        "ACTO 0 · EL LATIDO (EL PULSO ORIGINAL)",
+        "ACTO I · EL TRAZO Y LAS TRINCHERAS (EL RIGOR DEL OFICIO)",
+        "ACTO II · LA COLUMNA VERTEBRAL (CATORCE AÑOS DE RESISTENCIA)",
+        "ACTO III · LA SINAPSIS DIGITAL (RED NEURONAL & DECISIONES)",
       ],
     },
     hero: {
-      index: "00 / 01",
+      index: "00 / 04",
       role: "DIRECTOR CREATIVO / ARQUITECTO DE PRODUCTO",
       headlineLines: [
         "Veinticinco años",
@@ -125,111 +128,134 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
         "píxel perfecto.",
       ],
       subheadline:
-        "Ideas que se convierten en sistemas. Sistemas que se sienten humanos.",
-      manifestoTag: "JAVIER BLANCO GONZÁLEZ · OBRA Y TRAYECTORIA (2000 — 2026)",
-      ctaExplore: "INICIAR EL VIAJE",
-      ctaContact: "CONECTAR",
+        "Del asombro analógico al pulso de los agentes de IA. Una historia humana de resistencia, oficio y reinvención constante en la vanguardia digital.",
+      manifestoTag: "JAVIER BLANCO GONZÁLEZ · 25 AÑOS DE OFICIO (2000 — 2026)",
+      ctaExplore: "ENTRAR EN LA HISTORIA",
+      ctaContact: "CONVERSAR",
     },
     act1: {
       index: "01 / 04",
-      chapter: "ACTO I · EL OFICIO Y LAS TRINCHERAS",
-      years: "2000 — 2012",
-      title: "La disciplina invisible antes del algoritmo.",
+      chapter: "ACTO I · EL TRAZO Y LAS TRINCHERAS",
+      years: "2000 — 2012 · LOS AÑOS SALVAJES",
+      title: "Cuando internet aún se estaba inventando.",
       subtitle:
-        "Doce años forjando el ojo y el pulso en las grandes canteras interactivas de Madrid.",
+        "Doce años de noches en vela, obsesión milimétrica y la disciplina férrea del oficio en las grandes canteras interactivas de Madrid.",
       editorialLead:
-        "Antes de los frameworks reactivos y de la inteligencia sintética, existía el taller: noches interminables ajustando curvas Bézier, comprimiendo kilobytes al límite y defendiendo cada píxel como una declaración de principios.",
+        "Antes de los frameworks y de las pantallas táctiles, solo existía una pantalla de fósforo, el silencio de la madrugada y la reverencia absoluta por la belleza. Cada curva Bézier era un pulso contra los límites técnicos; cada kilobyte, una trinchera defendida con orgullo.",
       editorialBody:
-        "De mis primeros trazos en Netthink a liderar cuentas globales en Orbital BBDO, Publicis Dialog, Wunderman, Isobar, VCCP Spain y Carrots. Aquella época salvaje me enseñó una verdad inmutable: la dirección de arte sin estructura es decoración; el código sin sensibilidad es ruido.",
+        "De mis primeros trazos en Netthink a la dirección de arte en Orbital BBDO —reconocida con premios en los principales festivales—, y la gestión de grandes cuentas en Publicis, Wunderman e Isobar. Doce años de oficio que me enseñaron que la dirección de arte no es decoración, sino una cuestión de respeto y verdad hacia quien mira.",
       quote:
-        "«El oficio no se aprende en la calma; se talla cuando el rigor geométrico se convierte en instinto.»",
-      agenciesLabel: "BITÁCORA DE TRINCHERA · AGENCIAS INTERNACIONALES",
+        "«El oficio no es una técnica que se aprende en la calma; es una lealtad que se forja en el fuego y no se negocia jamás.»",
+      agenciesLabel: "TRAYECTORIA EN AGENCIA · 2000 — 2012",
       timeline: [
         {
-          period: "2011 — 2012",
-          role: "Director Creativo",
-          company: "Carrots",
+          period: "2000 — 2006",
+          role: "Diseñador Web & Director de Arte",
+          company: "Netthink",
           location: "Madrid",
+          badge: "El Kilómetro Cero",
           highlights:
-            "Formación y expansión del equipo creativo. Campañas social-first y ecosistemas digitales.",
-          clients: ["SPF.com", "Movistar Team", "Click Seguros", "Néctar"],
+            "El punto de partida de toda mi carrera. Seis años fundacionales descubriendo la alquimia entre tipografía, movimiento y código interactivo en la agencia pionera de la era digital española.",
+          clients: ["MSN", "Real Madrid", "Disney", "Microsoft"],
         },
         {
-          period: "2012",
-          role: "Digital Creative Director",
-          company: "VCCP Spain",
+          period: "2006 — 2007",
+          role: "Director de Arte",
+          company: "Orbital BBDO",
           location: "Madrid",
+          badge: "Campañas Premiadas",
           highlights:
-            "Dirección creativa digital integrada en red internacional de agencias.",
-          clients: ["Nike", "Endesa"],
+            "Etapa clave de dirección de arte interactiva y conceptualización para grandes marcas globales. Campañas multidisciplinares reconocidas con los galardones más prestigiosos de la industria.",
+          awards: "Premios El Sol · FIAP · Echo Award",
+          clients: [
+            "Renault",
+            "NH Hoteles",
+            "Grupo Vips",
+            "Telefónica",
+            "Banco Popular",
+            "EA Sports",
+          ],
         },
         {
-          period: "2009 — 2011",
-          role: "Supervisor Creativo",
-          company: "Netthink (Isobar)",
+          period: "2007",
+          role: "Director de Arte Interactivo",
+          company: "Publicis Dialog",
           location: "Madrid",
+          badge: "Experiencias de Marca",
           highlights:
-            "Supervisión creativa de grandes cuentas digitales y dirección de equipos multidisciplinares.",
-          clients: ["Disney", "Orange", "Kellogg's", "ONCE", "Vodafone"],
+            "Desarrollo de experiencias interactivas y campañas integradas de gran formato para líderes del mercado de automoción y telecomunicaciones.",
+          clients: ["Movistar", "Renault", "Telefónica"],
         },
         {
           period: "2007 — 2009",
           role: "Director de Arte",
           company: "Wunderman",
           location: "Madrid",
+          badge: "Campañas Globales 360º",
           highlights:
-            "Conceptualización y ejecución de campañas 360º e interactivas de alto impacto.",
-          clients: ["Ford", "Microsoft", "Iberia", "Repsol", "Land Rover"],
+            "Conceptualización y ejecución milimétrica de campañas interactivas 360º de alcance global, aunando rigor de marca, estrategia de respuesta directa y vanguardia digital.",
+          clients: [
+            "Ford",
+            "Microsoft",
+            "Movistar",
+            "Iberia",
+            "Repsol",
+            "Land Rover",
+          ],
         },
         {
-          period: "2006 — 2007",
-          role: "Director de Arte",
-          company: "Publicis Dialog & Orbital BBDO",
+          period: "2009 — 2011",
+          role: "Supervisor Creativo",
+          company: "Netthink (Isobar)",
           location: "Madrid",
+          badge: "Supervisión Creativa",
           highlights:
-            "Experiencias interactivas y campañas integradas para grandes anunciantes nacionales.",
-          clients: ["Movistar", "Renault", "NH Hoteles", "Telefónica", "Grupo Vips"],
+            "Regreso a la agencia matriz como supervisor creativo: dirección de equipos multidisciplinares de arte y código, y liderazgo de grandes cuentas multinacionales bajo plazos implacables.",
+          clients: ["Disney", "Orange", "Vodafone", "Kellogg's", "ONCE"],
         },
         {
-          period: "2000 — 2006",
-          role: "Diseñador Web & Director de Arte",
-          company: "Netthink",
+          period: "2011 — 2012",
+          role: "Director Creativo",
+          company: "Carrots",
           location: "Madrid",
+          badge: "Social-First",
           highlights:
-            "El kilómetro cero. Seis años descubriendo la alquimia entre tipografía, movimiento y código.",
-          clients: ["MSN", "Real Madrid", "Disney", "Microsoft"],
+            "Formación y liderazgo de equipo creativo. Ecosistemas digitales interactivos y estrategias social-first en los albores de la web social.",
+          clients: ["SPF.com", "Movistar Team", "Click Seguros", "Néctar"],
         },
       ],
+      vccpNote:
+        "Nota: Tras doce años en agencias y una breve estancia de un mes en VCCP Spain a comienzos de 2012, di el salto definitivo para fundar Help Estudio.",
     },
     act2: {
       index: "02 / 04",
-      chapter: "ACTO II · LA MÁQUINA DE PRODUCCIÓN",
+      chapter: "ACTO II · LA COLUMNA VERTEBRAL",
       years: "2012 — PRESENTE · HELP ESTUDIO",
-      title: "El socio silencioso cuando fallar no es opción.",
+      title: "El salto al vacío. La trinchera propia.",
       subtitle:
-        "Fundar Help Estudio para operar en la sala de máquinas de las agencias Tier-1.",
+        "Catorce años sosteniendo la producción digital de los mayores grupos publicitarios sin bajar jamás el listón.",
       editorialLead:
-        "En 2012 di el salto a la independencia con una premisa radical: unir estrategia, dirección creativa e ingeniería en un solo flujo sin intermediarios. Cuando una campaña nacional sale al aire mañana a las 08:00, las excusas no compilan.",
+        "En 2012 decidí saltar al vacío sin red: fundar Help Estudio como un acto de fe en el trabajo bien hecho. Convertirme en el socio invisible, de máxima exigencia y confianza ciega para quienes no pueden permitirse pestañear ni fallar.",
       editorialBody:
-        "Durante más de catorce años ininterrumpidos, Help Estudio ha sido el brazo de élite integrado en los equipos de Havas, Dentsu o Wunderman. Más de 1.200 campañas entregadas bajo presión extrema para las marcas más exigentes del mercado, manteniendo una artesanía pixel-perfect en cada formato.",
+        "Más de 1.200 campañas entregadas bajo presión extrema para Havas, Dentsu y Wunderman. Madrugadas de vértigo antes del lanzamiento de Citroën, Movistar o BMW. La columna vertebral de una trayectoria que aprendió a mantenerse en pie en mitad de cualquier tempestad.",
       metrics: [
         {
           value: "+1.200",
-          label: "CAMPAÑAS ENTREGADAS",
-          detail: "Ejecución quirúrgica bajo plazos críticos sin margen de error.",
+          label: "BATALLAS EN PRIMERA LÍNEA",
+          detail: "Campañas de alto impacto entregadas a tiempo con un estándar de artesanía inquebrantable.",
         },
         {
           value: "14+",
-          label: "AÑOS DE PRODUCCIÓN CONTINUA",
-          detail: "Socio de confianza de los mayores grupos publicitarios.",
+          label: "AÑOS EN LA TRINCHERA PROPIA",
+          detail: "Catorce años ininterrumpidos como el aliado de confianza absoluta de los grandes grupos.",
         },
         {
-          value: "12+",
-          label: "AGENCIAS PARTNER TIER-1",
-          detail: "Integración directa como recurso senior de alto rendimiento.",
+          value: "100%",
+          label: "LEALTAD AL OFICIO",
+          detail: "El compromiso visceral de cuidar cada detalle, cada curva y cada interacción como si fuera la primera.",
         },
       ],
-      tier1Label: "ALIANZAS TIER-1 // AGENCIAS PARTNER",
+      tier1Label: "QUIENES CONFIARON EN LA TEMPESTAD // ALIADOS",
       agencies: [
         "Havas",
         "Dentsu",
@@ -238,7 +264,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
         "Bámbu",
         "Ymedia",
       ],
-      brandsLabel: "MARCAS EN PRODUCCIÓN DE ALTO RENDIMIENTO",
+      brandsLabel: "MARCAS QUE COSTARON NOCHES EN VELA",
       brands: [
         "Citroën",
         "Movistar",
@@ -253,7 +279,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
         "Santander",
         "Paradores",
       ],
-      formatsLabel: "ARQUITECTURA DE FORMATOS",
+      formatsLabel: "DOMINIO ABSOLUTO DEL MEDIO",
       formats: [
         "HTML5 Custom",
         "Rich Media",
@@ -265,18 +291,18 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
     },
     act3: {
       index: "03 / 04",
-      chapter: "ACTO III · LA SINGULARIDAD Y EL FUTURO",
-      years: "2024 — 2026 · HELP ESTUDIO LAB",
-      title: "La única forma de predecir el futuro es programándolo.",
+      chapter: "ACTO III · LA CONSTELACIÓN PROPIA",
+      years: "2024 — FUTURO · HELP ESTUDIO LAB",
+      title: "La certeza de quien programa su propio destino.",
       subtitle:
-        "Fusión total entre dirección de arte, arquitectura de producto SaaS y sistemas de agentes de IA.",
+        "La madurez creativa total: no esperar el permiso de nadie y dar vida a productos vivos con inteligencia artificial.",
       editorialLead:
-        "Veinticinco años después, las fronteras entre quien imagina, quien diseña y quien programa han desaparecido. Hoy concibo y construyo productos propios desde cero con Next.js, TypeScript y arquitecturas de agentes encadenados.",
+        "Llega un día en que el oficio acumulado durante veinticinco años rompe todas las jaulas. Ya no construyes solo para otros ni esperas aprobaciones ajenas: te sientas frente al editor, respiras hondo y haces que tus ideas cobren vida.",
       editorialBody:
-        "Help Estudio Lab es el laboratorio donde la experiencia acumulada en más de mil campañas converge con la ingeniería moderna. Un solo autor controlando la totalidad del espectro: desde el modelo de datos en PostgreSQL y la orquestación de LLMs hasta la micro-interacción final en pantalla.",
+        "Help Estudio Lab es la constelación nacida de esa libertad. Next3Hours, Smashzone, Motorland, Cartle. Cuatro criaturas vivas programadas con Next.js, TypeScript y sistemas de agentes de IA. La ligereza de quien domina las herramientas y el vértigo hermoso de seguir inventando.",
       closingManifesto:
-        "No usamos la inteligencia artificial para reemplazar el criterio, sino para amplificar la obsesión artesanal a una escala antes imposible.",
-      labLabel: "ECOSISTEMA DE PRODUCTOS PROPIOS · HELP ESTUDIO LAB",
+        "No usamos la tecnología para reemplazar la emoción humana, sino para darle alas a una obsesión que lleva veinticinco años encendida.",
+      labLabel: "CRIATURAS NACIDAS DEL LABORATORIO · HELP ESTUDIO LAB",
       products: [
         {
           id: "next3hours",
@@ -284,10 +310,10 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
           name: "Next3Hours",
           url: "next3hours.com",
           href: "https://next3hours.com",
-          tag: "CONCIERGE IA MARCA BLANCA · B2B HOSPITALITY",
+          tag: "CONCIERGE IA DE AUTOR · B2B HOSPITALITY",
           status: "EN VIVO EN MADRID",
           description:
-            "Seis agentes de IA encadenados diseñan una tarde a medida para huéspedes de hoteles boutique: sitios reales, rutas con tiempos exactos y recompensas con la voz editorial única de cada hotel.",
+            "Seis agentes de IA encadenados diseñan una tarde a medida para huéspedes de hoteles boutique: lugares con alma, tiempos exactos y la voz editorial única de cada hotel.",
           stack: ["Next.js", "TypeScript", "6-Agent Chain", "LLM Orchestration", "PostGIS"],
         },
         {
@@ -296,7 +322,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
           name: "Smashzone",
           url: "smashzone.app",
           href: "https://smashzone.app",
-          tag: "SPORTS TECH & REWARDS · IOS / ANDROID",
+          tag: "SPORTS TECH & RECOMPENSAS · IOS / ANDROID",
           status: "TEMPORADA 0 EN VIVO",
           description:
             "Juega al pádel, gana recompensas reales. Valida cada partido cruzando geolocalización de pista y biometría de salud en tiempo real, premiando cada encuentro verificado con tokens.",
@@ -327,30 +353,30 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
           stack: ["Next.js", "Prisma", "AI Vision", "Edge Rendering", "Vercel"],
         },
       ],
-      capabilitiesLabel: "MATRIZ TÉCNICA & CAPACIDADES 2026",
+      capabilitiesLabel: "EL ARSENAL CREATIVO & TÉCNICO",
       capabilities: [
         {
-          category: "FRONT-END & PRODUCT ARCHITECTURE",
+          category: "DIRECCIÓN DE ARTE & OFICIO VISUAL",
+          items: ["Figma", "GSAP ScrollTrigger", "Framer Motion", "Adobe CC", "HTML5 de Autor", "Sistemas de Diseño"],
+        },
+        {
+          category: "ARQUITECTURA DE PRODUCTO & CÓDIGO",
           items: ["Next.js", "React", "TypeScript", "Three.js / WebGL", "Prisma", "PostgreSQL", "Vercel"],
         },
         {
-          category: "ART DIRECTION & MOTION CRAFT",
-          items: ["Figma", "GSAP ScrollTrigger", "Framer Motion", "Adobe CC", "Rich Media HTML5", "Design Systems"],
-        },
-        {
-          category: "GENERATIVE AI & AGENT SYSTEMS",
-          items: ["Claude", "Gemini", "ChatGPT", "Midjourney", "Chained Agents", "Make / n8n / Zapier", "Vibe-Coding"],
+          category: "INTELIGENCIA ARTIFICIAL & AGENTES",
+          items: ["Claude", "Gemini", "ChatGPT", "Midjourney", "Agentes Encadenados", "Make / n8n", "Vibe-Coding"],
         },
       ],
     },
     footer: {
       index: "04 / 04",
-      kicker: "EL PRÓXIMO SISTEMA COMIENZA CON UNA CONVERSACIÓN",
-      headline: "Construyamos algo extraordinario.",
+      kicker: "EL PRÓXIMO CAPÍTULO COMIENZA CON UNA CONVERSACIÓN",
+      headline: "Hablemos de lo que de verdad importa.",
       subline:
-        "Disponible para dirección creativa ejecutiva, arquitectura de producto digital, desarrollo de MVP con IA y alianzas de producción de alto nivel.",
+        "Si buscas a alguien que entienda el diseño como una cuestión de piel, el código como un lienzo vivo y el oficio como un compromiso inquebrantable, la puerta está abierta.",
       location: "Madrid, España · Operativa Global en Remoto",
-      educationLabel: "FORMACIÓN ACADÉMICA",
+      educationLabel: "RAÍZ ACADÉMICA",
       education: "Ingeniería Técnica en Informática de Gestión",
       educationSchool: "Universidad de Alcalá (1997 — 2003)",
       copyright: "© 2000 — 2026 JAVIER BLANCO GONZÁLEZ · HELP ESTUDIO. TODOS LOS PÍXELES RESERVADOS.",
@@ -358,131 +384,154 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
   },
   en: {
     meta: {
-      status: "AVAILABLE FOR SELECTED PROJECTS",
+      status: "BUILDING THE FUTURE · MADRID & GLOBAL",
       roleHeader: "CREATIVE DIRECTOR / PRODUCT ARCHITECT",
       scrollHint: "SCROLL TO TRAVERSE MEMORY · 2000 — 2026",
-      coordinates: "40.4168° N, 3.7038° W · MADRID / REMOTE",
+      coordinates: "TWENTY-FIVE YEARS OF CRAFT · MADRID / WORLD",
       webglStateLabel: [
-        " LIVING MEMORY FIELD // NEBULA",
-        " CARTESIAN LATTICE // CLASSICAL RIGOR",
-        " HIGH-DENSITY MONOLITH // INDUSTRIAL FORCE",
-        " ORBITAL CORE // SINGULARITY & AI",
+        "ACT 0 · THE HEARTBEAT (THE ORIGINAL PULSE)",
+        "ACT I · THE STROKE & THE TRENCHES (DEVOTION TO CRAFT)",
+        "ACT II · THE BACKBONE (FOURTEEN YEARS OF RESILIENCE)",
+        "ACT III · THE DIGITAL SYNAPSE (NEURAL NETWORK & DECISION TREE)",
       ],
     },
     hero: {
-      index: "00 / 01",
+      index: "00 / 04",
       role: "CREATIVE DIRECTOR / PRODUCT ARCHITECT",
       headlineLines: [
         "Twenty-five years",
         "chasing the",
-        "pixel perfect.",
+        "perfect pixel.",
       ],
       subheadline:
-        "Ideas that become systems. Systems that feel human.",
-      manifestoTag: "JAVIER BLANCO GONZÁLEZ · WORK & TRAJECTORY (2000 — 2026)",
-      ctaExplore: "BEGIN THE JOURNEY",
-      ctaContact: "GET IN TOUCH",
+        "From analog wonder to the pulse of AI agents. A human story of resilience, craft, and endless reinvention on the digital frontier.",
+      manifestoTag: "JAVIER BLANCO GONZÁLEZ · 25 YEARS OF CRAFT (2000 — 2026)",
+      ctaExplore: "ENTER THE STORY",
+      ctaContact: "START A DIALOGUE",
     },
     act1: {
       index: "01 / 04",
-      chapter: "ACT I · THE CRAFT & THE TRENCHES",
-      years: "2000 — 2012",
-      title: "Invisible discipline before the algorithm.",
+      chapter: "ACTI · THE STROKE & THE TRENCHES",
+      years: "2000 — 2012 · THE WILD YEARS",
+      title: "When the internet was still being invented.",
       subtitle:
-        "Twelve years forging eye and pulse inside Madrid's premier interactive creative houses.",
+        "Twelve years of sleepless nights, millimeter obsession, and unyielding discipline in Madrid's premier creative agencies.",
       editorialLead:
-        "Long before reactive frameworks and synthetic intelligence, there was the workshop: endless nights tuning Bézier curves, shaving kilobytes to the bone, and defending every single pixel as a statement of intent.",
+        "Before reactive frameworks and touchscreens, there was only the phosphor glow, the silence of 3 AM, and an absolute reverence for beauty. Every Bézier curve was a battle against technical limits; every single kilobyte, a trench defended with pride.",
       editorialBody:
-        "From my earliest keyframes at Netthink to leading global accounts at Orbital BBDO, Publicis Dialog, Wunderman, Isobar, VCCP Spain, and Carrots. That untamed era taught me an immutable truth: art direction without structure is mere decoration; code without sensitivity is noise.",
+        "From my first keyframes at Netthink to art direction at Orbital BBDO —honored with major awards at premier festivals—, and directing accounts at Publicis, Wunderman, and Isobar. Twelve crucible years that taught me art direction is never decoration—it is an act of respect and honesty toward the viewer.",
       quote:
-        "“Craft is never learned in comfort; it is carved when geometric rigor becomes second nature.”",
-      agenciesLabel: "TRENCH LOGBOOK · INTERNATIONAL AGENCIES",
+        "“Craft is never mastered in comfort; it is a sacred devotion forged under fire and never compromised.”",
+      agenciesLabel: "AGENCY TRAJECTORY · 2000 — 2012",
       timeline: [
         {
-          period: "2011 — 2012",
-          role: "Creative Director",
-          company: "Carrots",
+          period: "2000 — 2006",
+          role: "Web Designer & Art Director",
+          company: "Netthink",
           location: "Madrid",
+          badge: "Ground Zero",
           highlights:
-            "Built and scaled the creative team for client acquisition and retention. Led social-first ecosystems.",
-          clients: ["SPF.com", "Movistar Team", "Click Seguros", "Néctar"],
+            "The starting point of my entire career. Six foundational years discovering the alchemy of typography, animation, and interactive code at Spain's pioneering digital agency.",
+          clients: ["MSN", "Real Madrid", "Disney", "Microsoft"],
         },
         {
-          period: "2012",
-          role: "Digital Creative Director",
-          company: "VCCP Spain",
+          period: "2006 — 2007",
+          role: "Art Director",
+          company: "Orbital BBDO",
           location: "Madrid",
+          badge: "Award-Winning Campaigns",
           highlights:
-            "Digital creative leadership within an international agency network for flagship accounts.",
-          clients: ["Nike", "Endesa"],
+            "A defining period of interactive art direction and concept execution for global brands. Multidisciplinary campaigns recognized across the industry's premier festivals.",
+          awards: "El Sol Festival · FIAP · Echo Award",
+          clients: [
+            "Renault",
+            "NH Hoteles",
+            "Grupo Vips",
+            "Telefónica",
+            "Banco Popular",
+            "EA Sports",
+          ],
         },
         {
-          period: "2009 — 2011",
-          role: "Creative Supervisor",
-          company: "Netthink (Isobar)",
+          period: "2007",
+          role: "Interactive Art Director",
+          company: "Publicis Dialog",
           location: "Madrid",
+          badge: "Brand Experiences",
           highlights:
-            "Creative supervision of major digital accounts and leadership of multidisciplinary teams.",
-          clients: ["Disney", "Orange", "Kellogg's", "ONCE", "Vodafone"],
+            "Creation of rich digital brand experiences and large-scale integrated campaigns for telecommunications and automotive leaders.",
+          clients: ["Movistar", "Renault", "Telefónica"],
         },
         {
           period: "2007 — 2009",
           role: "Art Director",
           company: "Wunderman",
           location: "Madrid",
+          badge: "360º Global Campaigns",
           highlights:
-            "Concept and execution of high-impact 360º and interactive campaigns for global icons.",
-          clients: ["Ford", "Microsoft", "Iberia", "Repsol", "Land Rover"],
+            "Millimeter concept and art direction for global 360º interactive campaigns, uniting brand rigor, direct response strategy, and cutting-edge design.",
+          clients: [
+            "Ford",
+            "Microsoft",
+            "Movistar",
+            "Iberia",
+            "Repsol",
+            "Land Rover",
+          ],
         },
         {
-          period: "2006 — 2007",
-          role: "Art Director",
-          company: "Publicis Dialog & Orbital BBDO",
+          period: "2009 — 2011",
+          role: "Creative Supervisor",
+          company: "Netthink (Isobar)",
           location: "Madrid",
+          badge: "Creative Supervision",
           highlights:
-            "Interactive digital experiences and multidisciplinary campaigns for tier-one national brands.",
-          clients: ["Movistar", "Renault", "NH Hoteles", "Telefónica", "Grupo Vips"],
+            "Return to the mothership as creative supervisor: leading and mentoring multidisciplinary squads of art and engineering for top international accounts.",
+          clients: ["Disney", "Orange", "Vodafone", "Kellogg's", "ONCE"],
         },
         {
-          period: "2000 — 2006",
-          role: "Web Designer & Art Director",
-          company: "Netthink",
+          period: "2011 — 2012",
+          role: "Creative Director",
+          company: "Carrots",
           location: "Madrid",
+          badge: "Social-First",
           highlights:
-            "Ground zero. Six formative years discovering the alchemy between typography, motion, and code.",
-          clients: ["MSN", "Real Madrid", "Disney", "Microsoft"],
+            "Creative direction and team leadership during the dawn of the social web, conceptualizing interactive brand ecosystems.",
+          clients: ["SPF.com", "Movistar Team", "Click Seguros", "Néctar"],
         },
       ],
+      vccpNote:
+        "Note: Following twelve years across premier agencies and a brief one-month stay at VCCP Spain in early 2012, came the definitive leap to establish Help Estudio.",
     },
     act2: {
       index: "02 / 04",
-      chapter: "ACT II · THE PRODUCTION ENGINE",
+      chapter: "ACT II · THE BACKBONE",
       years: "2012 — PRESENT · HELP ESTUDIO",
-      title: "The silent partner when failure is not an option.",
+      title: "The leap into the void. My own trenches.",
       subtitle:
-        "Founding Help Estudio to operate inside the engine room of Tier-1 global agencies.",
+        "Fourteen uninterrupted years holding the line for the world’s top advertising networks without ever dropping the bar.",
       editorialLead:
-        "In 2012, I leaped into independence with a radical premise: unify strategy, creative direction, and product engineering into a single unmediated flow. When a national campaign goes live tomorrow at 08:00 AM, excuses do not compile.",
+        "In 2012, I leaped into the void with zero safety net: founding Help Estudio as an act of pure faith in honest craft. Becoming the invisible, relentless, deeply trusted partner for those who simply cannot afford to fail.",
       editorialBody:
-        "For over fourteen uninterrupted years, Help Estudio has served as the embedded elite force within Havas, Dentsu, and Wunderman. Over 1,200 campaigns delivered under extreme pressure for the market's most demanding brands—upholding uncompromising pixel-perfect craft across every format.",
+        "Over 1,200 campaigns delivered under extreme pressure for Havas, Dentsu, and Wunderman. High-stakes nights before national launches for Citroën, Movistar, or BMW. The unyielding backbone of a craft forged in the storm that learned to stand tall no matter the weight.",
       metrics: [
         {
           value: "+1,200",
-          label: "CAMPAIGNS DELIVERED",
-          detail: "Surgical execution under relentless deadlines with zero margin for error.",
+          label: "FRONTLINE CAMPAIGNS",
+          detail: "Delivered on time under maximum pressure with an unyielding artisan standard.",
         },
         {
           value: "14+",
-          label: "YEARS OF CONTINUOUS OUTPUT",
-          detail: "Trusted production partner to the world's largest advertising groups.",
+          label: "YEARS IN MY OWN TRENCHES",
+          detail: "Fourteen continuous years as the trusted ally to major global networks.",
         },
         {
-          value: "12+",
-          label: "TIER-1 PARTNER AGENCIES",
-          detail: "Embedded directly into agency squads as a specialized senior force.",
+          value: "100%",
+          label: "DEVOTION TO THE CRAFT",
+          detail: "The visceral commitment to care for every single pixel, curve, and interaction as if it were the first.",
         },
       ],
-      tier1Label: "TIER-1 ALLIANCES // PARTNER AGENCIES",
+      tier1Label: "THOSE WHO TRUSTED IN THE STORM // ALLIES",
       agencies: [
         "Havas",
         "Dentsu",
@@ -491,7 +540,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
         "Bámbu",
         "Ymedia",
       ],
-      brandsLabel: "HIGH-PERFORMANCE CAMPAIGN BRANDS",
+      brandsLabel: "BRANDS THAT COST SLEEPLESS NIGHTS",
       brands: [
         "Citroën",
         "Movistar",
@@ -506,7 +555,7 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
         "Santander",
         "Paradores",
       ],
-      formatsLabel: "FORMAT ARCHITECTURE",
+      formatsLabel: "ABSOLUTE MASTERY OF THE MEDIUM",
       formats: [
         "Custom HTML5",
         "Rich Media",
@@ -518,18 +567,18 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
     },
     act3: {
       index: "03 / 04",
-      chapter: "ACT III · THE SINGULARITY & THE FUTURE",
-      years: "2024 — 2026 · HELP ESTUDIO LAB",
-      title: "The only way to predict the future is to code it yourself.",
+      chapter: "ACT III · THE CONSTELLATION",
+      years: "2024 — FUTURE · HELP ESTUDIO LAB",
+      title: "The certainty of coding your own destiny.",
       subtitle:
-        "Total convergence of art direction, SaaS product architecture, and autonomous AI agent systems.",
+        "Total creative maturity: waiting for nobody's permission and breathing life into autonomous products with AI.",
       editorialLead:
-        "Twenty-five years in, the walls between the visionary, the designer, and the engineer have dissolved. Today I conceive and ship proprietary SaaS products from scratch using Next.js, TypeScript, and chained AI agent architectures.",
+        "There comes a day when a quarter-century of accumulated craft shatters every cage. You no longer build only for others or wait for outside validation: you sit before the editor, breathe, and bring your own visions to life.",
       editorialBody:
-        "Help Estudio Lab is where the battle-tested rigor of over a thousand campaigns collides with modern software engineering. A single auteur commanding the full stack: from PostgreSQL schemas and multi-agent LLM orchestration to the final shader on screen.",
+        "Help Estudio Lab is the constellation born of that pure freedom. Next3Hours, Smashzone, Motorland, Cartle. Four living products built with Next.js, TypeScript, and autonomous multi-agent systems. The weightlessness of mastering your tools and the breathtaking vertigo of continuing to invent.",
       closingManifesto:
-        "We do not use artificial intelligence to replace taste—we use it to amplify artisanal obsession to a scale previously unimaginable.",
-      labLabel: "PROPRIETARY PRODUCT ECOSYSTEM · HELP ESTUDIO LAB",
+        "We do not use technology to replace human emotion, but to grant wings to an obsession that has burned for twenty-five years.",
+      labLabel: "CREATURES BORN OF THE LAB · HELP ESTUDIO LAB",
       products: [
         {
           id: "next3hours",
@@ -537,10 +586,10 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
           name: "Next3Hours",
           url: "next3hours.com",
           href: "https://next3hours.com",
-          tag: "WHITE-LABEL AI CONCIERGE · B2B HOSPITALITY",
+          tag: "AUTEUR AI CONCIERGE · B2B HOSPITALITY",
           status: "LIVE IN MADRID",
           description:
-            "Six chained AI agents craft a bespoke afternoon for boutique hotel guests: curated real venues, timed walking routes, and perks written in each hotel's distinct editorial voice.",
+            "Six chained AI agents craft a bespoke afternoon for boutique hotel guests: soulful real venues, timed walking routes, and each hotel's distinct editorial voice.",
           stack: ["Next.js", "TypeScript", "6-Agent Chain", "LLM Orchestration", "PostGIS"],
         },
         {
@@ -580,30 +629,30 @@ export const NARRATIVE: Record<Locale, NarrativeContent> = {
           stack: ["Next.js", "Prisma", "AI Vision", "Edge Rendering", "Vercel"],
         },
       ],
-      capabilitiesLabel: "TECHNICAL MATRIX & 2026 CAPABILITIES",
+      capabilitiesLabel: "THE CREATIVE & TECHNICAL ARSENAL",
       capabilities: [
         {
-          category: "FRONT-END & PRODUCT ARCHITECTURE",
+          category: "ART DIRECTION & VISUAL CRAFT",
+          items: ["Figma", "GSAP ScrollTrigger", "Framer Motion", "Adobe CC", "Auteur HTML5", "Design Systems"],
+        },
+        {
+          category: "PRODUCT ARCHITECTURE & CODE",
           items: ["Next.js", "React", "TypeScript", "Three.js / WebGL", "Prisma", "PostgreSQL", "Vercel"],
         },
         {
-          category: "ART DIRECTION & MOTION CRAFT",
-          items: ["Figma", "GSAP ScrollTrigger", "Framer Motion", "Adobe CC", "Rich Media HTML5", "Design Systems"],
-        },
-        {
-          category: "GENERATIVE AI & AGENT SYSTEMS",
-          items: ["Claude", "Gemini", "ChatGPT", "Midjourney", "Chained Agents", "Make / n8n / Zapier", "Vibe-Coding"],
+          category: "ARTIFICIAL INTELLIGENCE & AGENTS",
+          items: ["Claude", "Gemini", "ChatGPT", "Midjourney", "Chained Agents", "Make / n8n", "Vibe-Coding"],
         },
       ],
     },
     footer: {
       index: "04 / 04",
-      kicker: "THE NEXT SYSTEM BEGINS WITH A CONVERSATION",
-      headline: "Let’s build something extraordinary.",
+      kicker: "THE NEXT CHAPTER BEGINS WITH A CONVERSATION",
+      headline: "Let’s talk about what truly matters.",
       subline:
-        "Available for executive creative direction, digital product architecture, AI-native MVP engineering, and high-stakes production partnerships.",
+        "If you are looking for someone who treats design as a matter of soul, code as a living canvas, and craft as an unbreakable vow, my door is open.",
       location: "Madrid, Spain · Operating Globally Remote",
-      educationLabel: "ACADEMIC FOUNDATION",
+      educationLabel: "ACADEMIC ROOT",
       education: "B.Eng. in Management Computer Science",
       educationSchool: "Universidad de Alcalá (1997 — 2003)",
       copyright: "© 2000 — 2026 JAVIER BLANCO GONZÁLEZ · HELP ESTUDIO. ALL PIXELS RESERVED.",

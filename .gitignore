@@ -54,3 +54,4 @@ Desktop.ini
 *.sublime-workspace
 .vscode/*
 !.vscode/settings.json
+DEPLOY.md

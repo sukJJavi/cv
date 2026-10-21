@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight, Mail, Globe, Linkedin, Sparkles, Terminal, Layers, Cpu } from "lucide-react";
+import { ArrowUpRight, Mail, Globe, Linkedin, Sparkles, Terminal, Layers, Cpu, Award, Trophy } from "lucide-react";
 import ParticleFieldCanvas, { ScrollEngineState } from "./ParticleFieldCanvas";
 import { NARRATIVE, Locale } from "@/data/narrative";
 
@@ -62,9 +62,41 @@ export default function ScrollytellingExperience() {
     [locale, triggerPulse]
   );
 
-  const scrollToSection = useCallback((el: HTMLElement | null) => {
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  const scrollToSection = useCallback((el: HTMLElement | null, idx?: number) => {
+    // 00 EL LATIDO or Hero: Return cleanly to the absolute top of the page
+    if (idx === 0 || el === heroSectionRef.current) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    // 04 CONTACTO or Footer
+    if (idx === 4 || el === footerSectionRef.current) {
+      if (footerSectionRef.current) {
+        footerSectionRef.current.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+      return;
+    }
+    if (!el) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    // If section or child is wrapped by GSAP pin spacer, scroll to the spacer or element
+    const pinSpacer = el.closest(".pin-spacer") as HTMLElement | null;
+    const target = pinSpacer || el;
+    const rect = target.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const headerOffset = 70;
+    const targetY = rect.top + scrollTop - headerOffset;
+
+    window.scrollTo({
+      top: Math.max(0, targetY),
+      behavior: "smooth",
+    });
   }, []);
 
   // GSAP ScrollTrigger Master Choreography (Initialized once, independent of language toggle)
@@ -84,20 +116,25 @@ export default function ScrollytellingExperience() {
       });
 
       // =====================================================================
-      // 1. HERO PINNED STAGE (Morph 0.0 -> 1.0 as Hero dissolves into Act I)
+      // 1. HERO STAGE (Natural parallax dissolve directly into Act I, no dead space)
       // =====================================================================
       if (heroSectionRef.current && heroInnerRef.current) {
+        ScrollTrigger.create({
+          trigger: heroSectionRef.current,
+          start: "top top",
+          end: "bottom 35%",
+          onEnter: () => setActiveAct(0),
+          onEnterBack: () => setActiveAct(0),
+        });
+
         const heroTl = gsap.timeline({
           scrollTrigger: {
             trigger: heroSectionRef.current,
             start: "top top",
-            end: "+=115%",
-            pin: true,
-            scrub: 1,
-            onEnter: () => setActiveAct(0),
-            onEnterBack: () => setActiveAct(0),
+            end: "bottom top",
+            scrub: 0.6,
             onUpdate: (self) => {
-              // Morph smoothly from 0.0 (Nebula) toward 0.85 (approaching Lattice)
+              // Morph smoothly from 0.0 (El Latido / Nebula) toward 0.85 (approaching Lattice)
               engineStateRef.current.morphStage = self.progress * 0.85;
             },
           },
@@ -108,33 +145,33 @@ export default function ScrollytellingExperience() {
             ".hero-meta-row",
             {
               y: -28,
-              opacity: 0.15,
-              duration: 0.6,
-              ease: "power2.inOut",
+              opacity: 0.2,
+              duration: 0.5,
+              ease: "power2.out",
             },
-            0.15
+            0
           )
           .to(
             ".hero-headline-line",
             {
-              y: -55,
+              y: -60,
               opacity: 0,
-              stagger: 0.06,
-              filter: "blur(8px)",
-              duration: 0.75,
-              ease: "power3.inOut",
+              stagger: 0.04,
+              filter: "blur(6px)",
+              duration: 0.65,
+              ease: "power2.out",
             },
-            0.2
+            0
           )
           .to(
             ".hero-sub-block",
             {
-              y: -35,
+              y: -38,
               opacity: 0,
-              duration: 0.65,
-              ease: "power2.inOut",
+              duration: 0.6,
+              ease: "power2.out",
             },
-            0.25
+            0.05
           );
       }
 
@@ -142,14 +179,32 @@ export default function ScrollytellingExperience() {
       // 2. ACT I: EL OFICIO Y LAS TRINCHERAS (Morph locked around 1.0 Lattice)
       // =====================================================================
       if (act1SectionRef.current && act1PinRef.current) {
-        // Pinned narrative intro stage for Act I
+        // Entrance reveal as Act 1 enters the viewport (eliminates any black void)
+        gsap.fromTo(
+          ".act1-reveal",
+          { y: 36, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: act1SectionRef.current,
+              start: "top 85%",
+              end: "top 30%",
+              scrub: 0.6,
+            },
+            y: 0,
+            opacity: 1,
+            stagger: 0.06,
+            ease: "power3.out",
+          }
+        );
+
+        // Pinned narrative reading stage for Act I (concise, snappy pin)
         const act1Tl = gsap.timeline({
           scrollTrigger: {
             trigger: act1PinRef.current,
             start: "top top",
-            end: "+=110%",
+            end: "+=50%",
             pin: true,
-            scrub: 1,
+            scrub: 0.8,
             onEnter: () => setActiveAct(1),
             onEnterBack: () => setActiveAct(1),
             onUpdate: (self) => {
@@ -159,30 +214,17 @@ export default function ScrollytellingExperience() {
           },
         });
 
-        act1Tl
-          .fromTo(
-            ".act1-reveal",
-            { y: 48, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              stagger: 0.08,
-              duration: 0.45,
-              ease: "power3.out",
-            },
-            0
-          )
-          .to(
-            ".act1-reveal",
-            {
-              y: -36,
-              opacity: 0.25,
-              stagger: 0.04,
-              duration: 0.35,
-              ease: "power2.in",
-            },
-            0.72
-          );
+        act1Tl.to(
+          ".act1-reveal",
+          {
+            y: -24,
+            opacity: 0.35,
+            stagger: 0.03,
+            duration: 0.35,
+            ease: "power2.in",
+          },
+          0.65
+        );
 
         // Transition across Act I timeline cards toward Act II (1.1 -> 1.85)
         ScrollTrigger.create({
@@ -200,13 +242,30 @@ export default function ScrollytellingExperience() {
       // 3. ACT II: LA MÁQUINA DE PRODUCCIÓN (Morph 2.0 Industrial Monolith)
       // =====================================================================
       if (act2SectionRef.current && act2PinRef.current) {
+        gsap.fromTo(
+          ".act2-reveal",
+          { y: 36, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: act2SectionRef.current,
+              start: "top 85%",
+              end: "top 30%",
+              scrub: 0.6,
+            },
+            y: 0,
+            opacity: 1,
+            stagger: 0.06,
+            ease: "power3.out",
+          }
+        );
+
         const act2Tl = gsap.timeline({
           scrollTrigger: {
             trigger: act2PinRef.current,
             start: "top top",
-            end: "+=120%",
+            end: "+=55%",
             pin: true,
-            scrub: 1,
+            scrub: 0.8,
             onEnter: () => setActiveAct(2),
             onEnterBack: () => setActiveAct(2),
             onUpdate: (self) => {
@@ -218,39 +277,27 @@ export default function ScrollytellingExperience() {
 
         act2Tl
           .fromTo(
-            ".act2-reveal",
-            { y: 50, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              stagger: 0.08,
-              duration: 0.45,
-              ease: "power3.out",
-            },
-            0
-          )
-          .fromTo(
             ".act2-metric-card",
-            { y: 40, opacity: 0, scale: 0.96 },
+            { y: 30, opacity: 0, scale: 0.96 },
             {
               y: 0,
               opacity: 1,
               scale: 1,
-              stagger: 0.1,
-              duration: 0.45,
+              stagger: 0.08,
+              duration: 0.4,
               ease: "power3.out",
             },
-            0.12
+            0
           )
           .to(
             ".act2-reveal",
             {
-              y: -32,
-              opacity: 0.25,
+              y: -24,
+              opacity: 0.35,
               duration: 0.3,
               ease: "power2.in",
             },
-            0.78
+            0.7
           );
 
         // Transition across Act II agency/brand matrix toward Act III (2.15 -> 2.85)
@@ -269,13 +316,30 @@ export default function ScrollytellingExperience() {
       // 4. ACT III: LA SINGULARIDAD Y EL FUTURO (Morph 3.0 Orbital AI Core)
       // =====================================================================
       if (act3SectionRef.current && act3PinRef.current) {
+        gsap.fromTo(
+          ".act3-reveal",
+          { y: 36, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: act3SectionRef.current,
+              start: "top 85%",
+              end: "top 30%",
+              scrub: 0.6,
+            },
+            y: 0,
+            opacity: 1,
+            stagger: 0.06,
+            ease: "power3.out",
+          }
+        );
+
         const act3Tl = gsap.timeline({
           scrollTrigger: {
             trigger: act3PinRef.current,
             start: "top top",
-            end: "+=115%",
+            end: "+=55%",
             pin: true,
-            scrub: 1,
+            scrub: 0.8,
             onEnter: () => setActiveAct(3),
             onEnterBack: () => setActiveAct(3),
             onUpdate: (self) => {
@@ -285,29 +349,16 @@ export default function ScrollytellingExperience() {
           },
         });
 
-        act3Tl
-          .fromTo(
-            ".act3-reveal",
-            { y: 50, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              stagger: 0.08,
-              duration: 0.48,
-              ease: "power3.out",
-            },
-            0
-          )
-          .to(
-            ".act3-reveal",
-            {
-              y: -28,
-              opacity: 0.3,
-              duration: 0.3,
-              ease: "power2.in",
-            },
-            0.78
-          );
+        act3Tl.to(
+          ".act3-reveal",
+          {
+            y: -24,
+            opacity: 0.35,
+            duration: 0.3,
+            ease: "power2.in",
+          },
+          0.7
+        );
       }
 
       // =====================================================================
@@ -434,13 +485,10 @@ export default function ScrollytellingExperience() {
       =================================================================== */}
       <aside className="fixed bottom-0 left-0 right-0 z-40 pointer-events-none hidden md:block">
         <div className="max-w-[1680px] mx-auto px-10 md:px-14 py-5 flex items-center justify-between font-mono text-[10px] tracking-[0.22em] text-[#8E8D8A]">
-          {/* Left: Active WebGL Morph Buffer Telemetry */}
-          <div className="flex items-center gap-3 bg-[#050505]/70 backdrop-blur-md px-3.5 py-2 border border-white/[0.08] pointer-events-auto">
-            <span className="w-1.5 h-1.5 bg-[#FF4D1C]" />
-            <span className="text-[#EAE8E3]/90">
-              STATE 0{activeAct} //
-            </span>
-            <span className="text-[#8E8D8A]">
+          {/* Left: Active Poetic Act Indicator */}
+          <div className="flex items-center gap-3 bg-[#050505]/80 backdrop-blur-md px-4 py-2 border border-white/[0.1] pointer-events-auto text-floating-sm">
+            <span className="w-1.5 h-1.5 bg-[#FF4D1C] animate-pulse" />
+            <span className="text-[#EAE8E3]/95 tracking-[0.22em]">
               {content.meta.webglStateLabel[activeAct]}
             </span>
           </div>
@@ -451,11 +499,34 @@ export default function ScrollytellingExperience() {
             className="flex items-center gap-1.5 bg-[#050505]/75 backdrop-blur-md px-2 py-1.5 border border-white/[0.08] pointer-events-auto"
           >
             {[
-              { idx: 0, label: "00 HERO", ref: heroSectionRef },
-              { idx: 1, label: "01 2000—12", ref: act1SectionRef },
-              { idx: 2, label: "02 HELP ESTUDIO", ref: act2SectionRef },
-              { idx: 3, label: "03 IA & LAB", ref: act3SectionRef },
-              { idx: 4, label: "04 CONTACTO", ref: footerSectionRef },
+              {
+                idx: 0,
+                label: locale === "es" ? "00 EL LATIDO" : "00 HEARTBEAT",
+                ref: heroSectionRef,
+              },
+              {
+                idx: 1,
+                label: locale === "es" ? "01 EL TRAZO" : "01 THE STROKE",
+                ref: act1SectionRef,
+              },
+              {
+                idx: 2,
+                label: locale === "es" ? "02 LA COLUMNA" : "02 THE SPINE",
+                ref: act2SectionRef,
+              },
+              {
+                idx: 3,
+                label:
+                  locale === "es"
+                    ? "03 EL PASO"
+                    : "03 THE STRIDE",
+                ref: act3SectionRef,
+              },
+              {
+                idx: 4,
+                label: locale === "es" ? "04 CONTACTO" : "04 CONTACT",
+                ref: footerSectionRef,
+              },
             ].map((item) => {
               const isCurrent =
                 activeAct === item.idx || (item.idx === 4 && scrollPercent > 92);
@@ -463,8 +534,8 @@ export default function ScrollytellingExperience() {
                 <button
                   key={item.label}
                   type="button"
-                  onClick={() => scrollToSection(item.ref.current)}
-                  className={`px-2.5 py-1 transition-all ${
+                  onClick={() => scrollToSection(item.ref.current, item.idx)}
+                  className={`px-3 py-1 transition-all ${
                     isCurrent
                       ? "bg-[#FF4D1C] text-[#050505] font-semibold"
                       : "text-[#8E8D8A] hover:text-[#EAE8E3]"
@@ -477,7 +548,7 @@ export default function ScrollytellingExperience() {
           </nav>
 
           {/* Right: Coordinates & Scroll Percentage */}
-          <div className="flex items-center gap-4 bg-[#050505]/70 backdrop-blur-md px-3.5 py-2 border border-white/[0.08]">
+          <div className="flex items-center gap-4 bg-[#050505]/70 backdrop-blur-md px-3.5 py-2 border border-white/[0.08] text-floating-sm">
             <span>{content.meta.coordinates}</span>
             <span className="text-[#FF4D1C] font-semibold">
               {String(scrollPercent).padStart(3, "0")}%
@@ -495,11 +566,11 @@ export default function ScrollytellingExperience() {
         ================================================================= */}
         <section
           ref={heroSectionRef}
-          className="relative w-full min-h-screen flex flex-col justify-between pt-28 pb-20 md:pt-36 md:pb-24 px-6 sm:px-10 md:px-20 lg:px-28 max-w-[1680px] mx-auto"
+          className="relative w-full min-h-screen flex flex-col justify-between pt-28 pb-16 md:pt-36 md:pb-20 px-6 sm:px-10 md:px-20 lg:px-28 max-w-[1680px] mx-auto"
         >
           <div ref={heroInnerRef} className="my-auto w-full">
             {/* Top Technical Row: 00 / 01 on Left, Role on Right (Matches reference screenshot) */}
-            <div className="hero-meta-row flex flex-wrap items-center justify-between gap-4 mb-10 md:mb-14">
+            <div className="hero-meta-row flex flex-wrap items-center justify-between gap-4 mb-10 md:mb-14 text-floating-sm">
               <div className="font-mono text-[11px] md:text-xs tracking-[0.28em] text-[#FF4D1C] font-medium">
                 {content.hero.index}
               </div>
@@ -509,7 +580,7 @@ export default function ScrollytellingExperience() {
             </div>
 
             {/* Monumental Editorial Serif Headline (Matches reference screenshot proportions & line breaks) */}
-            <h1 className="font-serif font-normal text-[#EAE8E3] tracking-[-0.03em] leading-[0.98] text-[clamp(3.1rem,8.4vw,8.25rem)] max-w-[15ch]">
+            <h1 className="font-serif font-normal text-[#EAE8E3] tracking-[-0.03em] leading-[0.98] text-[clamp(3.1rem,8.4vw,8.25rem)] max-w-[15ch] text-floating">
               {content.hero.headlineLines.map((line, i) => (
                 <span key={i} className="hero-headline-line block">
                   {line}
@@ -519,14 +590,14 @@ export default function ScrollytellingExperience() {
 
             {/* Subheadline & Subtle Editorial Actions */}
             <div className="hero-sub-block mt-10 md:mt-14 flex flex-col md:flex-row md:items-end justify-between gap-8">
-              <p className="font-sans font-light text-[#EAE8E3]/85 text-base sm:text-lg md:text-[21px] leading-[1.55] max-w-[44ch] tracking-[-0.01em]">
+              <p className="font-sans font-light text-[#EAE8E3]/85 text-base sm:text-lg md:text-[21px] leading-[1.55] max-w-[44ch] tracking-[-0.01em] text-floating">
                 {content.hero.subheadline}
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   type="button"
-                  onClick={() => scrollToSection(act1SectionRef.current)}
+                  onClick={() => scrollToSection(act1SectionRef.current, 1)}
                   onMouseEnter={() => triggerPulse(0.75)}
                   className="group inline-flex items-center gap-3 px-5 py-3 bg-[#EAE8E3] text-[#050505] font-mono text-[11px] tracking-[0.22em] uppercase hover:bg-[#FF4D1C] hover:text-[#050505] transition-colors"
                 >
@@ -548,7 +619,7 @@ export default function ScrollytellingExperience() {
           </div>
 
           {/* Bottom Subtle Scroll Telemetry */}
-          <div className="hero-sub-block pt-8 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4 font-mono text-[10px] tracking-[0.24em] text-[#8E8D8A]">
+          <div className="hero-sub-block pt-8 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4 font-mono text-[10px] tracking-[0.24em] text-[#8E8D8A] text-floating-sm">
             <span>{content.hero.manifestoTag}</span>
             <span className="text-[#EAE8E3]/70 animate-pulse">
               {content.meta.scrollHint}
@@ -568,12 +639,12 @@ export default function ScrollytellingExperience() {
           {/* Pinned Dramatic Narrative Stage */}
           <div
             ref={act1PinRef}
-            className="min-h-screen flex flex-col justify-center py-24"
+            className="min-h-screen flex flex-col justify-center py-16 md:py-20"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
               {/* Left Column: Chapter Index & Monumental Editorial Serif */}
-              <div className="lg:col-span-7 space-y-6">
-                <div className="act1-reveal flex items-center gap-4 font-mono text-xs tracking-[0.26em]">
+              <div className="lg:col-span-7 space-y-6 text-floating">
+                <div className="act1-reveal flex items-center gap-4 font-mono text-xs tracking-[0.26em] text-floating-sm">
                   <span className="text-[#FF4D1C] font-semibold">
                     {content.act1.index}
                   </span>
@@ -581,15 +652,15 @@ export default function ScrollytellingExperience() {
                   <span className="text-[#EAE8E3]/80">{content.act1.chapter}</span>
                 </div>
 
-                <div className="act1-reveal inline-block px-3 py-1 border border-white/15 bg-white/[0.03] font-mono text-[11px] tracking-[0.24em] text-[#FF4D1C]">
+                <div className="act1-reveal inline-block px-3 py-1 border border-white/15 bg-white/[0.03] font-mono text-[11px] tracking-[0.24em] text-[#FF4D1C] text-floating-sm">
                   {content.act1.years}
                 </div>
 
-                <h2 className="act1-reveal font-serif text-[clamp(2.5rem,5.6vw,5.4rem)] leading-[1.02] tracking-[-0.025em] text-[#EAE8E3]">
+                <h2 className="act1-reveal font-serif text-[clamp(2.5rem,5.6vw,5.4rem)] leading-[1.02] tracking-[-0.025em] text-[#EAE8E3] text-floating">
                   {content.act1.title}
                 </h2>
 
-                <p className="act1-reveal font-sans text-lg md:text-xl text-[#EAE8E3]/80 font-light leading-relaxed max-w-[54ch]">
+                <p className="act1-reveal font-sans text-lg md:text-xl text-[#EAE8E3]/80 font-light leading-relaxed max-w-[54ch] text-floating">
                   {content.act1.subtitle}
                 </p>
               </div>
@@ -623,29 +694,43 @@ export default function ScrollytellingExperience() {
 
           {/* Act I Interactive Agency Trench Logbook (2000 - 2012) */}
           <div className="act1-timeline-grid pb-32 md:pb-44">
-            <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-10">
+            <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-10 text-floating-sm">
               <div className="flex items-center gap-3 font-mono text-xs tracking-[0.25em] text-[#EAE8E3]">
                 <Layers className="w-3.5 h-3.5 text-[#FF4D1C]" />
                 <span>{content.act1.agenciesLabel}</span>
               </div>
               <span className="font-mono text-[11px] tracking-[0.2em] text-[#8E8D8A]">
-                MADRID · IN-HOUSE & NETWORKS
+                MADRID · 2000 — 2012 · ORDEN CRONOLÓGICO
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* Harmonious, balanced 6-stage chronological grid (3 columns x 2 rows on desktop) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {content.act1.timeline.map((item, idx) => (
                 <article
-                  key={`${item.company}-${idx}`}
+                  key={`${item.company}-${item.period}`}
                   onMouseEnter={() => triggerPulse(0.65)}
-                  className="group relative p-6 md:p-7 bg-[#050505]/80 backdrop-blur-md border border-white/[0.1] hover:border-[#FF4D1C]/70 transition-all duration-300 flex flex-col justify-between"
+                  className="group relative p-6 md:p-7 bg-[#050505]/85 backdrop-blur-md border border-white/[0.1] hover:border-[#FF4D1C]/70 transition-all duration-300 flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.2em] text-[#8E8D8A] mb-4">
-                      <span className="text-[#FF4D1C]">{item.period}</span>
-                      <span>0{idx + 1}</span>
+                    {/* Top row: Period, Index & Optional Badge */}
+                    <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.2em] text-[#8E8D8A] mb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#FF4D1C] font-semibold">
+                          {item.period}
+                        </span>
+                        {item.badge && (
+                          <span className="text-[10px] px-1.5 py-0.5 bg-white/[0.04] border border-white/10 text-[#EAE8E3]/80 tracking-[0.1em]">
+                            {item.badge}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[#8E8D8A]/70 font-mono text-[10px]">
+                        0{idx + 1}
+                      </span>
                     </div>
 
+                    {/* Company and Role */}
                     <h3 className="font-serif text-2xl md:text-[26px] text-[#EAE8E3] group-hover:text-white leading-tight">
                       {item.company}
                     </h3>
@@ -653,16 +738,28 @@ export default function ScrollytellingExperience() {
                       {item.role}
                     </div>
 
-                    <p className="font-sans text-sm text-[#8E8D8A] leading-relaxed mb-6">
+                    {/* Highlights description */}
+                    <p className="font-sans text-sm text-[#A8A7A1] leading-relaxed mb-5">
                       {item.highlights}
                     </p>
+
+                    {/* Integrated Awards mention if applicable (e.g. Orbital BBDO) */}
+                    {item.awards && (
+                      <div className="mb-5 px-3 py-2 bg-[#FFD700]/[0.05] border border-[#FFD700]/25 flex items-center gap-2 text-floating-sm">
+                        <Trophy className="w-3.5 h-3.5 text-[#FFD700] shrink-0" />
+                        <span className="font-mono text-[10.5px] tracking-[0.14em] text-[#FFD700]">
+                          {item.awards}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
+                  {/* Client Tags */}
                   <div className="pt-4 border-t border-white/[0.08] flex flex-wrap gap-1.5">
                     {item.clients.map((client) => (
                       <span
                         key={client}
-                        className="px-2 py-0.5 bg-white/[0.04] border border-white/[0.08] font-mono text-[10px] tracking-[0.12em] text-[#EAE8E3]/80"
+                        className="px-2 py-0.5 bg-white/[0.04] border border-white/[0.08] font-mono text-[10px] tracking-[0.12em] text-[#EAE8E3]/80 group-hover:text-white group-hover:border-white/20 transition-colors"
                       >
                         {client}
                       </span>
@@ -671,6 +768,21 @@ export default function ScrollytellingExperience() {
                 </article>
               ))}
             </div>
+
+            {/* Subtle Footnote for VCCP Spain (Bridge to Act II) */}
+            {content.act1.vccpNote && (
+              <div className="p-4 md:p-5 bg-white/[0.015] border border-white/[0.07] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-floating-sm">
+                <div className="flex items-start sm:items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4D1C]/80 mt-1 sm:mt-0 shrink-0" />
+                  <p className="font-sans text-xs text-[#8E8D8A] leading-relaxed">
+                    {content.act1.vccpNote}
+                  </p>
+                </div>
+                <span className="font-mono text-[10px] tracking-[0.2em] text-[#FF4D1C]/90 shrink-0 uppercase">
+                  2012 → HELP ESTUDIO
+                </span>
+              </div>
+            )}
           </div>
         </section>
 
@@ -689,8 +801,8 @@ export default function ScrollytellingExperience() {
             className="min-h-screen flex flex-col justify-center py-24"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mb-12 md:mb-16">
-              <div className="lg:col-span-7 space-y-5">
-                <div className="act2-reveal flex items-center gap-4 font-mono text-xs tracking-[0.26em]">
+              <div className="lg:col-span-7 space-y-5 text-floating">
+                <div className="act2-reveal flex items-center gap-4 font-mono text-xs tracking-[0.26em] text-floating-sm">
                   <span className="text-[#FF4D1C] font-semibold">
                     {content.act2.index}
                   </span>
@@ -698,11 +810,11 @@ export default function ScrollytellingExperience() {
                   <span className="text-[#EAE8E3]/80">{content.act2.chapter}</span>
                 </div>
 
-                <div className="act2-reveal inline-block px-3 py-1 border border-[#FF4D1C]/40 bg-[#FF4D1C]/10 font-mono text-[11px] tracking-[0.24em] text-[#FF4D1C]">
+                <div className="act2-reveal inline-block px-3 py-1 border border-[#FF4D1C]/40 bg-[#FF4D1C]/10 font-mono text-[11px] tracking-[0.24em] text-[#FF4D1C] text-floating-sm">
                   {content.act2.years}
                 </div>
 
-                <h2 className="act2-reveal font-serif text-[clamp(2.5rem,5.5vw,5.25rem)] leading-[1.02] tracking-[-0.025em] text-[#EAE8E3]">
+                <h2 className="act2-reveal font-serif text-[clamp(2.5rem,5.5vw,5.25rem)] leading-[1.02] tracking-[-0.025em] text-[#EAE8E3] text-floating">
                   {content.act2.title}
                 </h2>
               </div>
@@ -728,7 +840,9 @@ export default function ScrollytellingExperience() {
                   className="act2-metric-card group relative p-7 md:p-9 bg-[#050505]/85 backdrop-blur-md border border-white/[0.14] hover:border-[#FF4D1C] transition-colors"
                 >
                   <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.24em] text-[#8E8D8A] mb-3">
-                    <span>METRIC // 0{idx + 1}</span>
+                    <span>
+                      {locale === "es" ? "COLUMNA" : "PILLAR"} // 0{idx + 1}
+                    </span>
                     <span className="w-2 h-2 bg-[#FF4D1C]" />
                   </div>
                   <div className="font-serif text-[clamp(3.4rem,6vw,5.8rem)] leading-none tracking-[-0.03em] text-[#EAE8E3] group-hover:text-[#FF4D1C] transition-colors">
@@ -791,7 +905,11 @@ export default function ScrollytellingExperience() {
                 <div>
                   <div className="font-mono text-xs tracking-[0.24em] text-[#EAE8E3] uppercase mb-6 flex items-center justify-between">
                     <span>{content.act2.brandsLabel}</span>
-                    <span className="text-[#FF4D1C]">PIXEL-PERFECT SLA</span>
+                    <span className="text-[#FF4D1C] font-mono text-[10px] tracking-[0.2em]">
+                      {locale === "es"
+                        ? "ARTESANÍA & RESISTENCIA"
+                        : "CRAFT & RESILIENCE"}
+                    </span>
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -834,8 +952,8 @@ export default function ScrollytellingExperience() {
             className="min-h-screen flex flex-col justify-center py-24"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              <div className="lg:col-span-7 space-y-6">
-                <div className="act3-reveal flex items-center gap-4 font-mono text-xs tracking-[0.26em]">
+              <div className="lg:col-span-7 space-y-6 text-floating">
+                <div className="act3-reveal flex items-center gap-4 font-mono text-xs tracking-[0.26em] text-floating-sm">
                   <span className="text-[#FF4D1C] font-semibold">
                     {content.act3.index}
                   </span>
@@ -843,16 +961,16 @@ export default function ScrollytellingExperience() {
                   <span className="text-[#EAE8E3]/80">{content.act3.chapter}</span>
                 </div>
 
-                <div className="act3-reveal inline-flex items-center gap-2 px-3 py-1 border border-[#FF4D1C]/50 bg-[#FF4D1C]/10 font-mono text-[11px] tracking-[0.24em] text-[#FF4D1C]">
+                <div className="act3-reveal inline-flex items-center gap-2 px-3 py-1 border border-[#FF4D1C]/50 bg-[#FF4D1C]/10 font-mono text-[11px] tracking-[0.24em] text-[#FF4D1C] text-floating-sm">
                   <Sparkles className="w-3 h-3" />
                   <span>{content.act3.years}</span>
                 </div>
 
-                <h2 className="act3-reveal font-serif text-[clamp(2.5rem,5.6vw,5.4rem)] leading-[1.02] tracking-[-0.025em] text-[#EAE8E3]">
+                <h2 className="act3-reveal font-serif text-[clamp(2.5rem,5.6vw,5.4rem)] leading-[1.02] tracking-[-0.025em] text-[#EAE8E3] text-floating">
                   {content.act3.title}
                 </h2>
 
-                <p className="act3-reveal font-sans text-lg md:text-xl text-[#EAE8E3]/80 font-light leading-relaxed max-w-[54ch]">
+                <p className="act3-reveal font-sans text-lg md:text-xl text-[#EAE8E3]/80 font-light leading-relaxed max-w-[54ch] text-floating">
                   {content.act3.subtitle}
                 </p>
               </div>
@@ -876,7 +994,7 @@ export default function ScrollytellingExperience() {
           {/* Help Estudio Lab — Proprietary SaaS & AI Products Showcase */}
           <div className="pb-32 md:pb-44 space-y-16">
             <div>
-              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-4 mb-10">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-4 mb-10 text-floating-sm">
                 <div className="flex items-center gap-3 font-mono text-xs tracking-[0.25em] text-[#EAE8E3]">
                   <Terminal className="w-3.5 h-3.5 text-[#FF4D1C]" />
                   <span>{content.act3.labLabel}</span>
@@ -991,18 +1109,18 @@ export default function ScrollytellingExperience() {
         >
           <div className="max-w-[1680px] mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-20 border-b border-white/10">
-              <div className="lg:col-span-7 space-y-6">
-                <div className="flex items-center gap-3 font-mono text-xs tracking-[0.26em] text-[#FF4D1C]">
+              <div className="lg:col-span-7 space-y-6 text-floating">
+                <div className="flex items-center gap-3 font-mono text-xs tracking-[0.26em] text-[#FF4D1C] text-floating-sm">
                   <span>{content.footer.index}</span>
                   <span>//</span>
                   <span>{content.footer.kicker}</span>
                 </div>
 
-                <h2 className="font-serif text-[clamp(2.6rem,6vw,5.8rem)] leading-[1.0] tracking-[-0.03em] text-[#EAE8E3]">
+                <h2 className="font-serif text-[clamp(2.6rem,6vw,5.8rem)] leading-[1.0] tracking-[-0.03em] text-[#EAE8E3] text-floating">
                   {content.footer.headline}
                 </h2>
 
-                <p className="font-sans text-base md:text-lg text-[#8E8D8A] max-w-[52ch] leading-relaxed">
+                <p className="font-sans text-base md:text-lg text-[#8E8D8A] max-w-[52ch] leading-relaxed text-floating-sm">
                   {content.footer.subline}
                 </p>
               </div>

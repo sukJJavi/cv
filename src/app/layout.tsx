@@ -26,9 +26,42 @@ const sansFont = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Javier Blanco González (JBG.) — Director Creativo & Product Architect",
+  metadataBase: new URL("https://www.help-estudio.es/cv"),
+  title: "Javier Blanco González — Creative Director & Product Architect",
   description:
-    "Veinticinco años persiguiendo el píxel perfecto. Ideas que se convierten en sistemas. Sistemas que se sienten humanos. Fundador de Help Estudio & Help Estudio Lab.",
+    "Veinticinco años persiguiendo el píxel perfecto. Del asombro analógico al pulso de los agentes de IA.",
+  keywords: [
+    "Creative Director",
+    "Product Architect",
+    "Next.js",
+    "AI",
+    "Help Estudio",
+    "Madrid",
+    "Design",
+    "WebGL",
+    "Three.js",
+  ],
+  authors: [
+    { name: "Javier Blanco González", url: "https://www.help-estudio.es" },
+  ],
+  openGraph: {
+    title: "Javier Blanco González — Creative Director & Product Architect",
+    description:
+      "Veinticinco años persiguiendo el píxel perfecto. Del asombro analógico al pulso de los agentes de IA.",
+    url: "https://www.help-estudio.es/cv/",
+    siteName: "Help Estudio",
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Javier Blanco González — Creative Director & Product Architect",
+    description:
+      "Veinticinco años persiguiendo el píxel perfecto. Del asombro analógico al pulso de los agentes de IA.",
+  },
+  alternates: {
+    canonical: "https://www.help-estudio.es/cv/",
+  },
 };
 
 export default function RootLayout({
